@@ -1,10 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Text } from 'react-native'
 import styled from 'styled-components'
-import Poster from '../components/poster'
-import Video from '../components/video'
-// import VideoPlayer from 'react-native-video-player'
+import Icon from '../components/icon'
+import {TitleMovie, Legend, CommonText} from '../components/text'
+import YoutubePlayer from '../components/youtube'
+import Moment from 'moment'
 
 const Details = ({ route }) => {
     const [movie, setMovie] = useState({})
@@ -13,6 +13,13 @@ const Details = ({ route }) => {
     const {
         params: { id }
     } = route
+
+    const convertMinsToTime = (mins) => {
+        let hours = Math.floor(mins / 60);
+        let minutes = mins % 60;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${hours}h${minutes}`;
+    }
 
     useEffect(() => {
         axios({
@@ -51,20 +58,50 @@ const Details = ({ route }) => {
 
     return (
         <Container>
-            <Poster
-                urlImage={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-            <Text>{movie.title}</Text>
-            <Text>{movie.overview}</Text>
-            {/* <Video
-                urlVideo={`https://www.youtube.com/embed/${video.key}`} /> */}
-            {/* <Video source={{uri: `https://www.youtube.com/embed/${video.key}`}} style={{width: 250, height: 200}} controls={true} /> */}
-            <Video
-                urlVideo={`https://www.youtube.com/embed/${video.key}`}
-            />
+            <Grid>
+                <FirstColumn>
+                    <Icon
+                        urlImage={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+                </FirstColumn>
+                <SecondColumn>
+                    <TitleMovie>{movie.title}</TitleMovie>
+                    <Info>
+                        <CommonText>
+                            <Legend>Sortie</Legend> {Moment(movie.release_date).format('d MMM Y')}
+                            <Legend> | Durée</Legend> {convertMinsToTime(movie.runtime)}
+                        </CommonText>
+                    </Info>
+                </SecondColumn>
+            </Grid>
+            <YoutubePlayer
+                urlVideo={video.key} />
+            <CommonText>{movie.overview}</CommonText>
+
         </Container>
     )
 }
 
 const Container = styled.ScrollView``
+
+const Grid = styled.View`
+    flex: 1
+    flexDirection: row
+    flexWrap: wrap
+    alignItems: flex-start
+    margin: 10px
+`
+
+const FirstColumn = styled.View`
+    width: 30%
+`
+
+const SecondColumn = styled.View`
+    width: 70%
+`
+
+const Info = styled.View`
+    display: flex;
+`
+
 
 export default Details

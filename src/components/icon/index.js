@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Poster = ({ urlImage }) => {
+const Icon = ({ urlImage }) => {
   return (
     <Image
       source={{
@@ -13,8 +13,9 @@ const Poster = ({ urlImage }) => {
 
 
 const Image = styled.Image`
-  width: 250px;
-  height: 375px;
+  width: 100px;
+  height: 150px;
+  border-radius: 15px
 `
 
-export default Poster
+export default Icon

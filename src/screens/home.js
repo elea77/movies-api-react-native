@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { FlatList, Image } from 'react-native';
 import axios from 'axios'
 import Poster from '../components/poster'
+import {TitleList} from '../components/text'
 
 
 const Home = ({ navigation }) => {
@@ -46,7 +47,7 @@ const Home = ({ navigation }) => {
 
     return (
         <Container>
-            <TextStyled>Films à l'affiche</TextStyled>
+            <TitleList>Films à l'affiche</TitleList>
             <FlatList
                 horizontal
                 pagingEnabled={true}
@@ -60,7 +61,7 @@ const Home = ({ navigation }) => {
                     </Button>
                 )}
                 />
-            <TextStyled>Prochainement</TextStyled>
+            <TitleList>Prochainement</TitleList>
             <FlatList
                 horizontal
                 pagingEnabled={true}
@@ -78,12 +79,10 @@ const Home = ({ navigation }) => {
     )
 }
 
-const Container = styled.ScrollView``
-
-const TextStyled = styled.Text`
-    font-size: 22px
-    margin: 10px 5px
+const Container = styled.ScrollView`
+    color: white;
 `
+
 const Button = styled.TouchableOpacity``
 
 Home.propTypes = {}

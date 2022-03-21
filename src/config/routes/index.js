@@ -10,11 +10,12 @@ import Account from '../../screens/account'
 
 const BottomTab = createBottomTabNavigator()
 
+
 const Routes = () => {
   return (
     <NavigationContainer>
       <BottomTab.Navigator>
-        <BottomTab.Screen name='Home' component={MoviesStack}
+        <BottomTab.Screen name='HomeStack' component={MoviesStack}
         options={{
           tabBarIcon: () => (<Image source={{
             uri: "https://cdn-icons-png.flaticon.com/512/1665/1665346.png"
