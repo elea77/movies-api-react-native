@@ -17,6 +17,7 @@ const Routes = () => {
       <BottomTab.Navigator>
         <BottomTab.Screen name='HomeStack' component={MoviesStack}
         options={{
+          headerShown: false,
           tabBarIcon: () => (<Image source={{
             uri: "https://cdn-icons-png.flaticon.com/512/1665/1665346.png"
           }} style={{width: 28, height: 28}} />)

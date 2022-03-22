@@ -17,10 +17,17 @@ const TitleList = styled.Text`
 const Legend = styled.Text`
   font-size: 14px;
   color: #888888;
+  margin: 10px 0
 `
 
 const CommonText = styled.Text`
   color: white;
 `
 
-export { TitleMovie, Legend, CommonText, TitleList }
+const CommonTextRight = styled.Text`
+  color: #888888
+  textAlign: right
+  fontWeight: bold
+`
+
+export { TitleMovie, Legend, CommonText, CommonTextRight, TitleList }

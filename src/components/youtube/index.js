@@ -5,7 +5,7 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 const Youtube = ({ urlVideo }) => {
   return (
     <YoutubePlayer
-        height={250}
+        height={225}
         play={false}
         videoId={urlVideo}
       />

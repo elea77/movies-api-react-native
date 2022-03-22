@@ -15,7 +15,7 @@ const Icon = ({ urlImage }) => {
 const Image = styled.Image`
   width: 100px;
   height: 150px;
-  border-radius: 15px
+  borderRadius: 15px
 `
 
 export default Icon
