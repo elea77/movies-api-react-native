@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Icon from '../components/icon'
+import Actor from '../components/actor'
 import {TitleMovie, Legend, CommonText} from '../components/text'
 import YoutubePlayer from '../components/youtube'
 import Rating from '../components/rating'
@@ -15,6 +16,7 @@ import Star from 'react-native-star-view';
 const Movie = ({ navigation, route }) => {
     const [movie, setMovie] = useState({})
     const [video, setVideo] = useState({})
+    const [casting, setCasting] = useState({})
 
     const {
         params: { id }
@@ -56,6 +58,22 @@ const Movie = ({ navigation, route }) => {
         })
         .then(response => {
             setVideo(response.data.results[0]);
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        axios({
+            method: 'GET',
+            url: `https://api.themoviedb.org/3/movie/${id}/credits`,
+            params: {
+                ts: 1,
+                api_key: '6590c29cf14027ffe0cf70d4c826f104',
+                language: "fr-FR",
+                region: "fr"
+            }
+        })
+        .then(response => {
+            setCasting(response.data.cast);
         })
         .catch(error => {
             console.log(error)
@@ -112,6 +130,20 @@ const Movie = ({ navigation, route }) => {
                 </Column>
                 <Column></Column>
             </Grid>
+
+            <FlatList
+                horizontal
+                pagingEnabled={false}
+                data={casting}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                    <View>
+                        <Actor urlImage={`https://image.tmdb.org/t/p/w500${item.profile_path}`} />
+                        <CommonText>{item.name} </CommonText>
+                        <Legend>{item.character} </Legend>
+                    </View>
+                )}
+            />
         </Container>
     )
 }
@@ -130,6 +162,9 @@ const Text = styled.Text`
     marginBottom: 10px
     fontWeight: bold
     fontSize: 16px
+`
+
+const View = styled.View`
 `
 
 
