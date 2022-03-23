@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { FlatList, Image } from 'react-native';
+import { FlatList } from 'react-native';
 import axios from 'axios'
 import Poster from '../components/poster'
-import {TitleList} from '../components/text'
-
+import {TitleList, CommonTextRight} from '../components/text'
+import { Grid, Column } from '../components/layout'
 
 const Home = ({ navigation }) => {
 
@@ -63,7 +63,16 @@ const Home = ({ navigation }) => {
 
     return (
         <Container>
-            <TitleList>Films à l'affiche</TitleList>
+            <Grid>
+                <Column style={{ width: "70%" }}>
+                    <TitleList>Films à l'affiche</TitleList>
+                </Column>
+                <Column style={{ width: "30%" }}>
+                    <Button onPress={() => navigation.navigate('MoviesList', { data: "now_playing" })} >
+                        <CommonTextRight>Voir plus</CommonTextRight>
+                    </Button>
+                </Column>
+            </Grid>
             <FlatList
                 horizontal
                 pagingEnabled={true}
@@ -74,10 +83,21 @@ const Home = ({ navigation }) => {
                     onPress={() => navigation.navigate('Movie', { id: item.id })} >
                         <Poster
                             urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                        <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
                     </Button>
                 )}
                 />
-            <TitleList>Prochainement</TitleList>
+
+            <Grid>
+                <Column style={{ width: "70%" }}>
+                    <TitleList>Prochainement</TitleList>
+                </Column>
+                <Column style={{ width: "30%" }}>
+                    <Button onPress={() => navigation.navigate('MoviesList', { data: "upcoming" })} >
+                        <CommonTextRight>Voir plus</CommonTextRight>
+                    </Button>
+                </Column>
+            </Grid>
             <FlatList
                 horizontal
                 pagingEnabled={true}
@@ -88,10 +108,21 @@ const Home = ({ navigation }) => {
                     onPress={() => navigation.navigate('Movie', { id: item.id })} >
                         <Poster
                             urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                        <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
                     </Button>
                 )}
             />
-            <TitleList>Les plus populaires</TitleList>
+
+            <Grid>
+                <Column style={{ width: "70%" }}>
+                    <TitleList>Les plus populaires</TitleList>
+                </Column>
+                <Column style={{ width: "30%" }}>
+                    <Button onPress={() => navigation.navigate('MoviesList', { data: "popular" })} >
+                        <CommonTextRight>Voir plus</CommonTextRight>
+                    </Button>
+                </Column>
+            </Grid>
             <FlatList
                 horizontal
                 pagingEnabled={true}
@@ -102,6 +133,7 @@ const Home = ({ navigation }) => {
                     onPress={() => navigation.navigate('Movie', { id: item.id })} >
                         <Poster
                             urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                        <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
                     </Button>
                 )}
             />
@@ -111,6 +143,16 @@ const Home = ({ navigation }) => {
 
 const Container = styled.ScrollView`
     color: white;
+    margin: 10px
+`
+
+const MovieTitle = styled.Text`
+    color: white
+    textAlign: center
+    marginTop: 5px
+    marginBottom: 10px
+    fontWeight: bold
+    fontSize: 14px
 `
 
 const Button = styled.TouchableOpacity``

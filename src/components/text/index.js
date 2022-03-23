@@ -11,7 +11,6 @@ const TitleList = styled.Text`
   font-size: 22px;
   font-weight: bold;
   color: white;
-  margin: 10px 5px;
 `
 
 const Legend = styled.Text`
@@ -30,4 +29,16 @@ const CommonTextRight = styled.Text`
   fontWeight: bold
 `
 
-export { TitleMovie, Legend, CommonText, CommonTextRight, TitleList }
+const SmallTitleMovie = styled.Text`
+  color: white
+  fontSize: 14px;
+  textAlign: center
+`
+
+const SmallLegend = styled.Text`
+  fontSize: 12px;
+  color: #888888;
+  textAlign: center
+`
+
+export { TitleMovie, Legend, CommonText, CommonTextRight, TitleList, SmallLegend, SmallTitleMovie }

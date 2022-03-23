@@ -9,7 +9,7 @@ const Grid = styled.View`
 `
 
 const Column = styled.View`
-  width: 50%
+  width: 50%;
 `
 
 const Container = styled.ScrollView``

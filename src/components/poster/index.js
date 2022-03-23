@@ -15,6 +15,8 @@ const Poster = ({ urlImage }) => {
 const Image = styled.Image`
   width: 160px;
   height: 240px;
+  borderRadius: 15px
+  margin: 5px
 `
 
 export default Poster

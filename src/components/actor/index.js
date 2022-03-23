@@ -16,6 +16,7 @@ const Image = styled.Image`
   width: 120px;
   height: 120px;
   borderRadius: 120px
+  margin: auto
 `
 
 export default Actor

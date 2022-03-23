@@ -3,15 +3,12 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Icon from '../components/icon'
 import Actor from '../components/actor'
-import {TitleMovie, Legend, CommonText} from '../components/text'
+import {TitleMovie, TitleList, Legend, CommonText, SmallLegend, SmallTitleMovie} from '../components/text'
 import YoutubePlayer from '../components/youtube'
 import Rating from '../components/rating'
 import {Grid, Column, Container} from '../components/layout'
 import Moment from 'moment'
-// import ReadMore from '@fawazahmed/react-native-read-more';
-import ReadMore from 'react-native-read-more-text';
 import { FlatList } from 'react-native';
-import Star from 'react-native-star-view';
 
 const Movie = ({ navigation, route }) => {
     const [movie, setMovie] = useState({})
@@ -109,13 +106,9 @@ const Movie = ({ navigation, route }) => {
                     <Legend>{item.name} | </Legend>
                 )}
             />
-            <ReadMore
-              numberOfLines={5}
-              style={{ color: "white" }}>
-              <CommonText>
-                    {movie.overview}
-              </CommonText>
-            </ReadMore>
+            <CommonText numberOfLines={5}>
+                {movie.overview}
+            </CommonText>
             <Button
                 onPress={() => navigation.navigate('Details', { id: movie.id })} >
                     <Legend>
@@ -130,7 +123,8 @@ const Movie = ({ navigation, route }) => {
                 </Column>
                 <Column></Column>
             </Grid>
-
+            
+            <TitleList>Casting</TitleList>
             <FlatList
                 horizontal
                 pagingEnabled={false}
@@ -139,8 +133,8 @@ const Movie = ({ navigation, route }) => {
                 renderItem={({ item }) => (
                     <View>
                         <Actor urlImage={`https://image.tmdb.org/t/p/w500${item.profile_path}`} />
-                        <CommonText>{item.name} </CommonText>
-                        <Legend>{item.character} </Legend>
+                        <SmallTitleMovie ellipsizeMode='tail' numberOfLines={1}>{item.name}</SmallTitleMovie>
+                        <SmallLegend ellipsizeMode='tail' numberOfLines={1}>{item.character}</SmallLegend>
                     </View>
                 )}
             />
@@ -165,6 +159,8 @@ const Text = styled.Text`
 `
 
 const View = styled.View`
+    width: 120px
+    margin: 14px
 `
 
 
