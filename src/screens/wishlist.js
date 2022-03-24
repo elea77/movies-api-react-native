@@ -22,9 +22,8 @@ const Wishlist = ({navigation}) => {
     addFavToState()
   }, [])
 
-  // useEffect(() => {
-  //   console.log("fav", fav)
-  // }, [fav])
+  useEffect(() => {
+  }, [fav])
 
   return (
     <Container>

@@ -62,10 +62,6 @@ const Home = ({ navigation }) => {
 
     return (
         <Container>
-            <Input
-                placeholder="Rechercher un film"
-                placeholderTextColor="white" />
-
             <Grid>
                 <Column style={{ width: "70%" }}>
                     <TitleList>Films à l'affiche</TitleList>
@@ -89,7 +85,7 @@ const Home = ({ navigation }) => {
                         <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
                     </Button>
                 )}
-                />
+            />
 
             <Grid>
                 <Column style={{ width: "70%" }}>
@@ -130,7 +126,7 @@ const Home = ({ navigation }) => {
                 horizontal
                 pagingEnabled={true}
                 data={popular}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.title}
                 renderItem={({ item }) => (
                     <Button
                     onPress={() => navigation.navigate('Film', { id: item.id })} >
@@ -147,6 +143,11 @@ const Home = ({ navigation }) => {
 const Container = styled.ScrollView`
     color: white;
     margin: 10px
+`
+
+
+const ResultsSearch = styled.FlatList`
+    
 `
 
 const MovieTitle = styled.Text`
