@@ -24,7 +24,7 @@ const Search = ({navigation}) => {
         })
         .then(response => {
             setResults(response.data.results);
-            console.log(results);
+            // setResults([...results, ...response.data.results]);
         })
         .catch(function (error) {
             console.log(error);
@@ -32,8 +32,7 @@ const Search = ({navigation}) => {
     }
 
     useEffect(() => {
-        console.log(results);
-    }, [results, page])
+    }, [page])
 
     return (
         <Container>
@@ -42,12 +41,12 @@ const Search = ({navigation}) => {
                 placeholderTextColor="white" 
                 onChangeText={search =>{ setSearch(search), handleSearch()}}
             />
-
+            
             <FlatList
                 data={results}
                 keyExtractor={item => item.id}
                 numColumns={3}
-                onEndReached={() => setPage(page + 1)}
+                onEndReached={() => {setPage(page + 1), handleSearch()}}
                 renderItem={({ item }) => (
                     <Button
                     onPress={() => navigation.navigate('Film', { id: item.id })} >
@@ -64,6 +63,7 @@ const Search = ({navigation}) => {
 const Container = styled.SafeAreaView`
     color: white;
     margin: 10px
+    marginBottom: 50px
 `
 
 
@@ -84,9 +84,9 @@ const Button = styled.TouchableOpacity`
 
 const Input = styled.TextInput`
     backgroundColor: #222222
-    padding: 8px 12px
+    padding: 10px 14px
     borderRadius: 20px
-    fontSize: 15px
+    fontSize: 18px
     marginBottom: 10px
     color: white
 `

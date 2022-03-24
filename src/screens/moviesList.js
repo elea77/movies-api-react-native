@@ -26,7 +26,6 @@ const MoviesList = ({ navigation, route }) => {
             }
         })
         .then(response => {
-            console.log(response.data.results);
             setMovies([...movies, ...response.data.results]);
         })
         .catch(function (error) {
