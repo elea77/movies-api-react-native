@@ -5,8 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Image } from "react-native";
 import { GiPopcorn } from 'react-icons/gi';
 import MoviesStack from './moviesStack'
-import Search from '../../screens/search'
-import Wishlist from '../../screens/wishlist'
+import SearchStack from './searchStack'
+import WishlistStack from './wishlistStack'
 import FlashMessage from 'react-native-flash-message'
 
 const BottomTab = createBottomTabNavigator()
@@ -23,14 +23,16 @@ const Routes = () => {
             uri: "https://cdn-icons-png.flaticon.com/512/1665/1665346.png"
           }} style={{width: 28, height: 28}} />)
         }} />
-        <BottomTab.Screen name='Mes favoris' component={Wishlist}
+        <BottomTab.Screen name='Mes favoris' component={WishlistStack}
           options={{
+            headerShown: false,
             tabBarIcon: () => (<Image source={{
               uri: "https://cdn-icons-png.flaticon.com/512/126/126471.png"
             }} style={{width: 28, height: 28}} />)
           }} />
-        <BottomTab.Screen name='Recherche' component={Search}
+        <BottomTab.Screen name='Recherche' component={SearchStack}
           options={{
+            headerShown: false,
             tabBarIcon: () => (<Image source={{
               uri: "https://cdn-icons-png.flaticon.com/512/622/622669.png"
             }} style={{width: 26, height: 26}} />)

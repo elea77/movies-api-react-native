@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import axios from 'axios'
 import SmallPoster from '../components/smallPoster'
 
-const Search = () => {
+const Search = ({navigation}) => {
 
     const [search, setSearch] = useState("");
     const [results, setResults] = useState([])
