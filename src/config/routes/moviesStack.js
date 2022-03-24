@@ -10,9 +10,9 @@ const Stack = createNativeStackNavigator()
 const MoviesStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Home' component={Home} />
-      <Stack.Screen name='MoviesList' component={MoviesList} />
-      <Stack.Screen name='Movie' component={Movie} />
+      <Stack.Screen name='Cinéma' component={Home} />
+      <Stack.Screen name='Liste des films' component={MoviesList} />
+      <Stack.Screen name='Film' component={Movie} />
       <Stack.Screen name='Details' component={Details} />
     </Stack.Navigator>
   )

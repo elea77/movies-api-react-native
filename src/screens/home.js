@@ -63,12 +63,16 @@ const Home = ({ navigation }) => {
 
     return (
         <Container>
+            <Input
+                placeholder="Rechercher un film"
+                placeholderTextColor="white" />
+
             <Grid>
                 <Column style={{ width: "70%" }}>
                     <TitleList>Films à l'affiche</TitleList>
                 </Column>
                 <Column style={{ width: "30%" }}>
-                    <Button onPress={() => navigation.navigate('MoviesList', { data: "now_playing" })} >
+                    <Button onPress={() => navigation.navigate('Liste des films', { data: "now_playing" })} >
                         <CommonTextRight>Voir plus</CommonTextRight>
                     </Button>
                 </Column>
@@ -80,7 +84,7 @@ const Home = ({ navigation }) => {
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <Button
-                    onPress={() => navigation.navigate('Movie', { id: item.id })} >
+                    onPress={() => navigation.navigate('Film', { id: item.id })} >
                         <Poster
                             urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
                         <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
@@ -93,7 +97,7 @@ const Home = ({ navigation }) => {
                     <TitleList>Prochainement</TitleList>
                 </Column>
                 <Column style={{ width: "30%" }}>
-                    <Button onPress={() => navigation.navigate('MoviesList', { data: "upcoming" })} >
+                    <Button onPress={() => navigation.navigate('Liste des films', { data: "upcoming" })} >
                         <CommonTextRight>Voir plus</CommonTextRight>
                     </Button>
                 </Column>
@@ -105,7 +109,7 @@ const Home = ({ navigation }) => {
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <Button
-                    onPress={() => navigation.navigate('Movie', { id: item.id })} >
+                    onPress={() => navigation.navigate('Film', { id: item.id })} >
                         <Poster
                             urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
                         <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
@@ -118,7 +122,7 @@ const Home = ({ navigation }) => {
                     <TitleList>Les plus populaires</TitleList>
                 </Column>
                 <Column style={{ width: "30%" }}>
-                    <Button onPress={() => navigation.navigate('MoviesList', { data: "popular" })} >
+                    <Button onPress={() => navigation.navigate('Liste des films', { data: "popular" })} >
                         <CommonTextRight>Voir plus</CommonTextRight>
                     </Button>
                 </Column>
@@ -130,7 +134,7 @@ const Home = ({ navigation }) => {
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <Button
-                    onPress={() => navigation.navigate('Movie', { id: item.id })} >
+                    onPress={() => navigation.navigate('Film', { id: item.id })} >
                         <Poster
                             urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
                         <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
@@ -153,6 +157,16 @@ const MovieTitle = styled.Text`
     marginBottom: 10px
     fontWeight: bold
     fontSize: 14px
+    width: 160px
+`
+
+const Input = styled.TextInput`
+    backgroundColor: #222222
+    padding: 8px 12px
+    borderRadius: 20px
+    fontSize: 15px
+    marginBottom: 10px
+    color: white
 `
 
 const Button = styled.TouchableOpacity``

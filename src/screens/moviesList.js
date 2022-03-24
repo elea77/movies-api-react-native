@@ -55,7 +55,7 @@ const MoviesList = ({ navigation, route }) => {
                 onEndReached={() => setPage(page + 1)}
                 renderItem={({ item }) => (
                     <Button
-                        onPress={() => navigation.navigate('Movie', { id: item.id })} >
+                        onPress={() => navigation.navigate('Film', { id: item.id })} >
 
                         <Icon
                             urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />

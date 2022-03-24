@@ -9,6 +9,10 @@ import Rating from '../components/rating'
 import {Grid, Column, Container} from '../components/layout'
 import Moment from 'moment'
 import { FlatList } from 'react-native';
+import readWishlist from '../utils/readWishlist'
+import addToWishlist from '../utils/addToWishlist'
+import removeFromWishlist from '../utils/removeFromWishlist'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Movie = ({ navigation, route }) => {
     const [movie, setMovie] = useState({})
@@ -25,6 +29,19 @@ const Movie = ({ navigation, route }) => {
         minutes = minutes < 10 ? '0' + minutes : minutes;
         return `${hours}h${minutes}`;
     }
+
+    const checkFavorite = async item => {
+        const allFav = await readWishlist()
+
+        
+        const index = allFav.map(f => f.id).findIndex(itemId => itemId === item.id)
+        if (index === -1) {
+            addToWishlist(item)
+        } else {
+            removeFromWishlist(item)
+        }
+    }
+    
 
     useEffect(() => {
         axios({
@@ -116,6 +133,13 @@ const Movie = ({ navigation, route }) => {
                     </Legend>
             </Button>
 
+            <Button
+                onPress={() => {
+                    checkFavorite(movie)
+                }} >
+                <CommonText>ADD TO FAVORITE</CommonText>
+            </Button>
+
             <Grid>
                 <Column style={{ width: "60%" }}>
                     <Text>Presse</Text>
@@ -124,7 +148,7 @@ const Movie = ({ navigation, route }) => {
                 <Column></Column>
             </Grid>
             
-            <TitleList>Casting</TitleList>
+            <TitleList>Casting <Legend>• {casting.length}</Legend></TitleList>
             <FlatList
                 horizontal
                 pagingEnabled={false}
