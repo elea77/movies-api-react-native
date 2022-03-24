@@ -7,6 +7,7 @@ import { GiPopcorn } from 'react-icons/gi';
 import MoviesStack from './moviesStack'
 import Home from '../../screens/home'
 import Wishlist from '../../screens/wishlist'
+import FlashMessage from 'react-native-flash-message'
 
 const BottomTab = createBottomTabNavigator()
 
@@ -15,7 +16,7 @@ const Routes = () => {
   return (
     <NavigationContainer>
       <BottomTab.Navigator>
-        <BottomTab.Screen name='Cinéma' component={MoviesStack}
+        <BottomTab.Screen name='Accueil' component={MoviesStack}
         options={{
           headerShown: false,
           tabBarIcon: () => (<Image source={{
@@ -29,6 +30,7 @@ const Routes = () => {
             }} style={{width: 28, height: 28}} />)
           }} />
       </BottomTab.Navigator>
+      <FlashMessage position='top' />
     </NavigationContainer>
   )
 }

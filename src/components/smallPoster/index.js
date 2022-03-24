@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Icon = ({ urlImage }) => {
+const SmallPoster = ({ urlImage }) => {
   return (
     <Image
       source={{
@@ -18,4 +18,4 @@ const Image = styled.Image`
   borderRadius: 15px
 `
 
-export default Icon
+export default SmallPoster

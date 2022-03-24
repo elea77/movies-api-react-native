@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Icon from '../components/icon'
+import SmallPoster from '../components/smallPoster'
 import Actor from '../components/actor'
 import {TitleMovie, TitleList, Legend, CommonText, SmallLegend, SmallTitleMovie} from '../components/text'
 import YoutubePlayer from '../components/youtube'
@@ -12,12 +12,13 @@ import { FlatList } from 'react-native';
 import readWishlist from '../utils/readWishlist'
 import addToWishlist from '../utils/addToWishlist'
 import removeFromWishlist from '../utils/removeFromWishlist'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 const Movie = ({ navigation, route }) => {
     const [movie, setMovie] = useState({})
     const [video, setVideo] = useState({})
     const [casting, setCasting] = useState({})
+    const [fav, setIsFav] = useState(false)
 
     const {
         params: { id }
@@ -37,8 +38,10 @@ const Movie = ({ navigation, route }) => {
         const index = allFav.map(f => f.id).findIndex(itemId => itemId === item.id)
         if (index === -1) {
             addToWishlist(item)
+            setIsFav(true)
         } else {
             removeFromWishlist(item)
+            setIsFav(false)
         }
     }
     
@@ -98,7 +101,7 @@ const Movie = ({ navigation, route }) => {
         <Container>
             <Grid>
                 <Column style={{ width: "30%" }}>
-                    <Icon
+                    <SmallPoster
                         urlImage={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
                 </Column>
                 <Column style={{ width: "70%" }}>
@@ -133,19 +136,24 @@ const Movie = ({ navigation, route }) => {
                     </Legend>
             </Button>
 
-            <Button
-                onPress={() => {
-                    checkFavorite(movie)
-                }} >
-                <CommonText>ADD TO FAVORITE</CommonText>
-            </Button>
-
             <Grid>
                 <Column style={{ width: "60%" }}>
                     <Text>Presse</Text>
                     <Rating note={Math.trunc((movie.vote_average / 2) * 10) / 10} />
                 </Column>
-                <Column></Column>
+                <Column style={{ width: "40%" }}>
+                    <FavButton
+                        onPress={() => {
+                            checkFavorite(movie)
+                        }} >
+                        <Text></Text>
+                        <Background>
+                            <Icon source={{
+                                uri: "https://cdn-icons-png.flaticon.com/512/7155/7155556.png"
+                                }} /> 
+                        </Background>
+                    </FavButton>
+                </Column>
             </Grid>
             
             <TitleList>Casting <Legend>• {casting.length}</Legend></TitleList>
@@ -168,6 +176,23 @@ const Movie = ({ navigation, route }) => {
 
 
 const Button = styled.TouchableOpacity`
+`
+
+const FavButton = styled.TouchableOpacity`
+    flex: 1
+    alignItems: center
+    justifyContent: center
+`
+
+const Icon = styled.Image`
+    width: 30px
+    height: 30px
+`
+
+const Background = styled.View`
+    backgroundColor: white
+    borderRadius: 10px
+    padding: 5px
 `
 
 const Info = styled.View`

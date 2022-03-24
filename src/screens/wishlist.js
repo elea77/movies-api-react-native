@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useFocusEffect } from '@react-navigation/native'
 import readWishlist from '../utils/readWishlist'
 import { FlatList } from 'react-native';
-import Icon from '../components/icon'
+import SmallPoster from '../components/smallPoster'
 import { SmallTitleMovie, CommonText, Legend} from '../components/text'
 
 const Wishlist = ({navigation}) => {
@@ -22,9 +22,9 @@ const Wishlist = ({navigation}) => {
     addFavToState()
   }, [])
 
-  useEffect(() => {
-    console.log("fav", fav)
-  }, [fav])
+  // useEffect(() => {
+  //   console.log("fav", fav)
+  // }, [fav])
 
   return (
     <Container>
@@ -35,7 +35,7 @@ const Wishlist = ({navigation}) => {
             renderItem={({ item }) => (
                 <Button
                     onPress={() => navigation.navigate('Film', { id: item.id })} >
-                    <Icon
+                    <SmallPoster
                         urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
                     <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
                 </Button>

@@ -1,13 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { FlatList } from 'react-native';
 import axios from 'axios'
-import Poster from '../components/poster'
-import { SmallTitleMovie, CommonText, Legend} from '../components/text'
-import { Grid, Column } from '../components/layout'
-import Icon from '../components/icon'
-import Moment from 'moment'
+import SmallPoster from '../components/smallPoster'
 
 
 const MoviesList = ({ navigation, route }) => {
@@ -57,7 +52,7 @@ const MoviesList = ({ navigation, route }) => {
                     <Button
                         onPress={() => navigation.navigate('Film', { id: item.id })} >
 
-                        <Icon
+                        <SmallPoster
                             urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
                         <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
 
