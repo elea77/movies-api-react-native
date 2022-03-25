@@ -2,13 +2,12 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components'
 import { FlatList } from 'react-native';
 import axios from 'axios'
-import SmallPoster from '../components/smallPoster'
+import ButtonMovie from '../components/btnSmallPoster'
 
 const Search = ({navigation}) => {
 
     const [search, setSearch] = useState("");
     const [results, setResults] = useState([])
-    const [page, setPage] = useState(1);
 
     const handleSearch = () => {
         axios({
@@ -18,21 +17,16 @@ const Search = ({navigation}) => {
                 api_key: '6590c29cf14027ffe0cf70d4c826f104',
                 language: "fr-FR",
                 region: "fr",
-                query: search,
-                page: page
+                query: search
             }
         })
         .then(response => {
             setResults(response.data.results);
-            // setResults([...results, ...response.data.results]);
         })
         .catch(function (error) {
             console.log(error);
         })
     }
-
-    useEffect(() => {
-    }, [page])
 
     return (
         <Container>
@@ -45,14 +39,8 @@ const Search = ({navigation}) => {
                 data={results}
                 keyExtractor={item => item.id}
                 numColumns={3}
-                onEndReached={() => {setPage(page + 1), handleSearch()}}
                 renderItem={({ item }) => (
-                    <Button
-                    onPress={() => navigation.navigate('Film', { id: item.id })} >
-                        <SmallPoster
-                            urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                        <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                    </Button>
+                    <ButtonMovie movie={item} navigation={navigation} />
                 )}
             />
         </Container>
@@ -63,22 +51,6 @@ const Container = styled.SafeAreaView`
     color: white;
     margin: 10px
     marginBottom: 50px
-`
-
-
-const MovieTitle = styled.Text`
-    color: white
-    textAlign: center
-    marginTop: 5px
-    marginBottom: 10px
-    fontWeight: bold
-    fontSize: 14px
-    width: 100px
-`
-
-const Button = styled.TouchableOpacity`
-    width: auto
-    margin: auto
 `
 
 const Input = styled.TextInput`

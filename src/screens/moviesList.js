@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import { FlatList } from 'react-native';
 import axios from 'axios'
-import SmallPoster from '../components/smallPoster'
+import ButtonMovie from '../components/btnSmallPoster'
 
 
 const MoviesList = ({ navigation, route }) => {
@@ -41,14 +41,7 @@ const MoviesList = ({ navigation, route }) => {
                 numColumns={3}
                 onEndReached={() => setPage(page + 1)}
                 renderItem={({ item }) => (
-                    <Button
-                        onPress={() => navigation.navigate('Film', { id: item.id })} >
-
-                        <SmallPoster
-                            urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                        <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-
-                    </Button>
+                    <ButtonMovie movie={item} navigation={navigation} />
                 )}
             />
 
@@ -62,21 +55,6 @@ const Container = styled.SafeAreaView`
     marginTop: 20px
 `
 
-
-const MovieTitle = styled.Text`
-    color: white
-    textAlign: center
-    marginTop: 5px
-    marginBottom: 10px
-    fontWeight: bold
-    fontSize: 14px
-    width: 100px
-`
-
-const Button = styled.TouchableOpacity`
-    width: auto
-    margin: auto
-`
 
 MoviesList.propTypes = {}
 

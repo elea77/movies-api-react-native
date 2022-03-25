@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import { FlatList } from 'react-native';
 import axios from 'axios'
-import Poster from '../components/poster'
+import ButtonMovie from '../components/btnPoster'
 import {TitleList, CommonTextRight, CommonText} from '../components/text'
 import { Grid, Column } from '../components/layout'
 
@@ -91,12 +91,7 @@ const Home = ({ navigation }) => {
                     data={now_playing}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (
-                        <Button
-                        onPress={() => navigation.navigate('Film', { id: item.id })} >
-                            <Poster
-                                urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                            <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                        </Button>
+                        <ButtonMovie movie={item} navigation={navigation} />
                     )}
                 />
                 : <CommonText>Aucun film disponible</CommonText>
@@ -120,12 +115,7 @@ const Home = ({ navigation }) => {
                     data={upcoming}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (
-                        <Button
-                        onPress={() => navigation.navigate('Film', { id: item.id })} >
-                            <Poster
-                                urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                            <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                        </Button>
+                        <ButtonMovie movie={item} navigation={navigation} />
                     )}
                 />
                 : <CommonText>Aucun film disponible</CommonText>
@@ -149,12 +139,7 @@ const Home = ({ navigation }) => {
                     data={popular}
                     keyExtractor={item => item.title}
                     renderItem={({ item }) => (
-                        <Button
-                        onPress={() => navigation.navigate('Film', { id: item.id })} >
-                            <Poster
-                                urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                            <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                        </Button>
+                        <ButtonMovie movie={item} navigation={navigation} />
                     )}
                 />
 
@@ -169,11 +154,6 @@ const Container = styled.ScrollView`
     margin: 10px
 `
 
-
-const ResultsSearch = styled.FlatList`
-    
-`
-
 const MovieTitle = styled.Text`
     color: white
     textAlign: center
@@ -182,15 +162,6 @@ const MovieTitle = styled.Text`
     fontWeight: bold
     fontSize: 14px
     width: 160px
-`
-
-const Input = styled.TextInput`
-    backgroundColor: #222222
-    padding: 8px 12px
-    borderRadius: 20px
-    fontSize: 15px
-    marginBottom: 10px
-    color: white
 `
 
 const Button = styled.TouchableOpacity``

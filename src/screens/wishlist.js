@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useFocusEffect } from '@react-navigation/native'
 import readWishlist from '../utils/readWishlist'
 import { FlatList } from 'react-native';
-import SmallPoster from '../components/smallPoster'
+import ButtonMovie from '../components/btnSmallPoster'
 import { CommonText } from '../components/text'
 
 const Wishlist = ({navigation}) => {
@@ -34,12 +34,7 @@ const Wishlist = ({navigation}) => {
               numColumns={3}
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
-                  <Button
-                      onPress={() => navigation.navigate('Film', { id: item.id })} >
-                      <SmallPoster
-                          urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                      <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                  </Button>
+                <ButtonMovie movie={item} navigation={navigation} />
               )}
           />
         : <CommonText>Vous n'avez pas de favoris</CommonText>
@@ -52,20 +47,6 @@ const Container = styled.SafeAreaView`
   color: white;
   margin: 10px
   marginTop: 20px
-`
-const Button = styled.TouchableOpacity`
-  width: auto
-  margin: auto
-`
-
-const MovieTitle = styled.Text`
-  color: white
-  textAlign: center
-  marginTop: 5px
-  marginBottom: 10px
-  fontWeight: bold
-  fontSize: 14px
-  width: 100px
 `
 
 export default Wishlist
