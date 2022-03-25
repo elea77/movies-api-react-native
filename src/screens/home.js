@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { FlatList } from 'react-native';
 import axios from 'axios'
 import Poster from '../components/poster'
-import {TitleList, CommonTextRight} from '../components/text'
+import {TitleList, CommonTextRight, CommonText} from '../components/text'
 import { Grid, Column } from '../components/layout'
 
 const Home = ({ navigation }) => {
@@ -11,6 +11,7 @@ const Home = ({ navigation }) => {
     const [now_playing, setMoviesNowPlaying] = useState([]);
     const [upcoming, setMoviesUpComing] = useState([]);
     const [popular, setMoviesPopular] = useState([]);
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         axios({
@@ -24,9 +25,11 @@ const Home = ({ navigation }) => {
         })
         .then(response => {
             setMoviesNowPlaying([...now_playing, ...response.data.results]);
+            setLoading(false);
         })
         .catch(function (error) {
             console.log(error);
+            setLoading(false);
         })
         axios({
             method: "GET",
@@ -39,9 +42,11 @@ const Home = ({ navigation }) => {
         })
         .then(response => {
             setMoviesUpComing([...upcoming, ...response.data.results]);
+            setLoading(false);
         })
         .catch(function (error) {
             console.log(error);
+            setLoading(false);
         })
         axios({
             method: "GET",
@@ -54,11 +59,17 @@ const Home = ({ navigation }) => {
         })
         .then(response => {
             setMoviesPopular([...popular, ...response.data.results]);
+            setLoading(false);
         })
         .catch(function (error) {
             console.log(error);
+            setLoading(false);
         })
     }, [])
+
+    if(isLoading) {
+        return(<CommonText>Chargement en cours</CommonText>)
+    }
 
     return (
         <Container>
@@ -72,20 +83,24 @@ const Home = ({ navigation }) => {
                     </Button>
                 </Column>
             </Grid>
-            <FlatList
-                horizontal
-                pagingEnabled={true}
-                data={now_playing}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <Button
-                    onPress={() => navigation.navigate('Film', { id: item.id })} >
-                        <Poster
-                            urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                        <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                    </Button>
-                )}
-            />
+            {
+                now_playing.length ?
+                <FlatList
+                    horizontal
+                    pagingEnabled={true}
+                    data={now_playing}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (
+                        <Button
+                        onPress={() => navigation.navigate('Film', { id: item.id })} >
+                            <Poster
+                                urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                            <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
+                        </Button>
+                    )}
+                />
+                : <CommonText>Aucun film disponible</CommonText>
+            }
 
             <Grid>
                 <Column style={{ width: "70%" }}>
@@ -97,20 +112,24 @@ const Home = ({ navigation }) => {
                     </Button>
                 </Column>
             </Grid>
-            <FlatList
-                horizontal
-                pagingEnabled={true}
-                data={upcoming}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <Button
-                    onPress={() => navigation.navigate('Film', { id: item.id })} >
-                        <Poster
-                            urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                        <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                    </Button>
-                )}
-            />
+            {
+                upcoming.length ?
+                <FlatList
+                    horizontal
+                    pagingEnabled={true}
+                    data={upcoming}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (
+                        <Button
+                        onPress={() => navigation.navigate('Film', { id: item.id })} >
+                            <Poster
+                                urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                            <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
+                        </Button>
+                    )}
+                />
+                : <CommonText>Aucun film disponible</CommonText>
+            }
 
             <Grid>
                 <Column style={{ width: "70%" }}>
@@ -122,20 +141,25 @@ const Home = ({ navigation }) => {
                     </Button>
                 </Column>
             </Grid>
-            <FlatList
-                horizontal
-                pagingEnabled={true}
-                data={popular}
-                keyExtractor={item => item.title}
-                renderItem={({ item }) => (
-                    <Button
-                    onPress={() => navigation.navigate('Film', { id: item.id })} >
-                        <Poster
-                            urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                        <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                    </Button>
-                )}
-            />
+            {
+                popular.length ?
+                <FlatList
+                    horizontal
+                    pagingEnabled={true}
+                    data={popular}
+                    keyExtractor={item => item.title}
+                    renderItem={({ item }) => (
+                        <Button
+                        onPress={() => navigation.navigate('Film', { id: item.id })} >
+                            <Poster
+                                urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                            <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
+                        </Button>
+                    )}
+                />
+
+                : <CommonText>Aucun film disponible</CommonText>
+            }
         </Container>
     )
 }

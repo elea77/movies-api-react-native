@@ -4,7 +4,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import readWishlist from '../utils/readWishlist'
 import { FlatList } from 'react-native';
 import SmallPoster from '../components/smallPoster'
-import { SmallTitleMovie, CommonText, Legend} from '../components/text'
+import { CommonText } from '../components/text'
 
 const Wishlist = ({navigation}) => {
   const [fav, setFav] = useState([])
@@ -23,24 +23,27 @@ const Wishlist = ({navigation}) => {
   }, [])
 
   useEffect(() => {
+    console.log(fav);
   }, [fav])
 
   return (
     <Container>
-        <FlatList
-            data={fav}
-            numColumns={3}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-                <Button
-                    onPress={() => navigation.navigate('Film', { id: item.id })} >
-                    <SmallPoster
-                        urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-                    <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
-                </Button>
-            )}
-        />
-
+        { fav.length ? 
+          <FlatList
+              data={fav}
+              numColumns={3}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                  <Button
+                      onPress={() => navigation.navigate('Film', { id: item.id })} >
+                      <SmallPoster
+                          urlImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                      <MovieTitle ellipsizeMode='tail' numberOfLines={1}>{item.title}</MovieTitle>
+                  </Button>
+              )}
+          />
+        : <CommonText>Vous n'avez pas de favoris</CommonText>
+        }
     </Container>
   )
 }

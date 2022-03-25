@@ -40,8 +40,7 @@ const Search = ({navigation}) => {
                 placeholder="Rechercher un film"
                 placeholderTextColor="white" 
                 onChangeText={search =>{ setSearch(search), handleSearch()}}
-            />
-            
+            /> 
             <FlatList
                 data={results}
                 keyExtractor={item => item.id}
